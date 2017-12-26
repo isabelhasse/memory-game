@@ -27,15 +27,22 @@ $(document).ready(function() {
   // }
 
   var firstClick = true;
-  $("td").click(function(){
+  var cellClick = function() {
     $(this).children().show();
     if (firstClick === true) {
       firstClick = false;
     } else {
       firstClick = true;
-      setTimeout(function() {$("td").children().hide();}, 2000);
+      $("td").off("click");
+      var twoClicked = function() {
+        $("td").children().hide();
+        $("td").on("click", cellClick);
+      };
+      setTimeout(twoClicked, 2000);
     }
-  });
+  };
+
+  $("td").on("click", cellClick);
 });
 
 },{"./../js/memory.js":1}]},{},[2]);
